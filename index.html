@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suka Film</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: white;
+    }
+
+    header {
+      padding: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      background: #111;
+      text-align: center;
+    }
+
+    .search {
+      padding: 12px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      padding: 12px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .title {
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    .player {
+      position: fixed;
+      inset: 0;
+      background: black;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    .player video {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+    }
+
+    .close {
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: none;
+      background: red;
+      color: white;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>🎬 Suka Film</header>
+
+<div class="search">
+  <input type="text" id="search" placeholder="Cari film..." oninput="render()">
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="player" id="player">
+  <video id="video" controls autoplay></video>
+  <button class="close" onclick="closePlayer()">Tutup</button>
+</div>
+
+<script>
+const DATA_URL = "https://raw.githubusercontent.com/dragonheroes17-code/SukaFilm/main/videos.json";
+
+let videos = [];
+
+async function loadVideos() {
+  try {
+    const res = await fetch(DATA_URL);
+    videos = await res.json();
+    render();
+  } catch {
+    document.getElementById("grid").innerHTML = "Belum ada video.";
+  }
+}
+
+function render() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  videos
+    .filter(v => v.title.toLowerCase().includes(q))
+    .forEach((v, i) => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <img src="${v.thumb}">
+        <div class="title">${v.title}</div>
+      `;
+      div.onclick = () => openPlayer(i);
+      grid.appendChild(div);
+    });
+}
+
+function openPlayer(i) {
+  const player = document.getElementById("player");
+  const video = document.getElementById("video");
+  video.src = videos[i].url;
+  player.style.display = "flex";
+}
+
+function close Ok
