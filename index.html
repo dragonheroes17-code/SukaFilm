@@ -1,126 +1,107 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suka Film</title><style>
-body{margin:0;font-family:Arial,sans-serif;background:#000;color:#fff}
-header{padding:16px;text-align:center;font-size:22px;font-weight:bold;background:#111}
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Suka Short</title>
 
-.ads-top,.ads-bottom{text-align:center;padding:12px}
+<style>
+body{
+margin:0;
+background:#000;
+font-family:sans-serif;
+overflow-y:scroll;
+scroll-snap-type:y mandatory;
+}
 
-.tabs{display:flex;gap:8px;padding:10px;overflow:auto}
-.tabs button{padding:8px 14px;border:none;border-radius:20px;background:#222;color:#fff;font-size:13px}
-.tabs button.active{background:red}
+.videoBox{
+height:100vh;
+scroll-snap-align:start;
+position:relative;
+}
 
-.search{padding:10px}
-.search input{width:100%;padding:12px;border-radius:20px;border:none;background:#111;color:white}
+video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;padding:14px}
-.card{background:#111;border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s}
-.card:hover{transform:scale(1.05)}
-.card img{width:100%;height:200px;object-fit:cover}
-.title{padding:8px;font-size:13px;text-align:center}
+.title{
+position:absolute;
+bottom:80px;
+left:15px;
+color:white;
+font-size:18px;
+font-weight:bold;
+text-shadow:0 0 5px black;
+}
 
-.player{position:fixed;inset:0;background:#000;display:none;align-items:center;justify-content:center;flex-direction:column;z-index:999}
-.player video{width:100%;max-height:80vh}
+</style>
+</head>
 
-.controls{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.controls button{padding:10px 14px;border:none;border-radius:8px;background:red;color:white}
-</style></head><body><header>🎬 Suka Film</header><!-- POPUNDER --><script src="https://pl28689674.effectivegatecpm.com/ff/55/77/ff5577d8518b78b53e2583db39c0880f.js"></script><div class="ads-top">
+<body>
+
+<!-- POPUNDER ADS -->
+<script src="https://pl28689674.effectivegatecpm.com/ff/55/77/ff5577d8518b78b53e2583db39c0880f.js"></script>
+
+<div id="feed"></div>
+
 <script>
-atOptions={'key':'918a03189f43a50d0c498f0fe27c8fd1','format':'iframe','height':250,'width':300,'params':{}};
+
+const DATA_URL="https://raw.githubusercontent.com/dragonheroes17-code/SukaFilm/main/shorts.json";
+
+async function loadShorts(){
+
+const res=await fetch(DATA_URL);
+const shorts=await res.json();
+
+const feed=document.getElementById("feed");
+
+shorts.forEach(v=>{
+
+const box=document.createElement("div");
+box.className="videoBox";
+
+box.innerHTML=`
+<video muted loop playsinline preload="none">
+<source src="${v.video}" type="video/mp4">
+</video>
+
+<div class="title">${v.title}</div>
+`;
+
+feed.appendChild(box);
+
+});
+
+autoPlay();
+
+}
+
+function autoPlay(){
+
+const videos=document.querySelectorAll("video");
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+entry.target.play();
+}else{
+entry.target.pause();
+}
+
+});
+
+},{threshold:0.7});
+
+videos.forEach(v=>observer.observe(v));
+
+}
+
+loadShorts();
+
 </script>
-<script src="https://www.highperformanceformat.com/918a03189f43a50d0c498f0fe27c8fd1/invoke.js"></script>
-</div><div class="tabs">
-  <button onclick="setCategory('all',this)" class="active">Kategori</button>
-  <button onclick="setCategory('sub-indo',this)">Sub Indo</button>
-  <button onclick="setCategory('short-video',this)">Short Video</button>
-  <button onclick="setCategory('jav',this)">JAV</button>
-  <button onclick="setCategory('cosplayer',this)">Cosplayer</button>
-</div><div class="search">
-  <input id="search" placeholder="Cari film..." oninput="render()">
-</div><div class="grid" id="grid">Loading...</div><div class="ads-bottom">
-<script>
-atOptions={'key':'918a03189f43a50d0c498f0fe27c8fd1','format':'iframe','height':250,'width':300,'params':{}};
-</script>
-<script src="https://www.highperformanceformat.com/918a03189f43a50d0c498f0fe27c8fd1/invoke.js"></script>
-</div><div class="player" id="player">
-  <video id="video" controls autoplay></video>
-  <div class="controls">
-    <button onclick="prevVideo()">⏮ Prev</button>
-    <button onclick="nextVideo()">Next ⏭</button>
-    <button onclick="setServer(0)">Server 1</button>
-    <button onclick="setServer(1)">Server 2</button>
-    <button onclick="setServer(2)">Server 3</button>
-    <button onclick="downloadSmart()">⬇ Download</button>
-    <button onclick="closePlayer()">Tutup</button>
-  </div>
-</div><script>
-const DATA_URL="https://raw.githubusercontent.com/dragonheroes17-code/SukaFilm/main/videos.json";
-const SMARTLINK="https://www.effectivegatecpm.com/nmgdiyzvqf?key=6ace03870e7e2249b2df84f18104939d";
 
-let videos=[];
-let currentCategory="all";
-let currentIndex=0;
-
-async function loadVideos(){
-  try{
-    const res=await fetch(DATA_URL);
-    videos=await res.json();
-    render();
-  }catch{document.getElementById("grid").innerHTML="Gagal load video"}
-}
-
-function render(){
-  const q=document.getElementById("search").value.toLowerCase();
-  const grid=document.getElementById("grid");
-  grid.innerHTML="";
-
-  videos
-  .filter(v=>(currentCategory==="all"||v.category===currentCategory)&&v.title.toLowerCase().includes(q))
-  .forEach((v,i)=>{
-    const div=document.createElement("div");
-    div.className="card";
-    div.innerHTML=`<img src="${v.thumb}"><div class="title">${v.title}</div>`;
-    div.onclick=()=>openPlayer(i);
-    grid.appendChild(div);
-  });
-}
-
-function setCategory(cat,btn){
-  currentCategory=cat;
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  render();
-}
-
-function openPlayer(i){
-  currentIndex=i;
-  const video=document.getElementById("video");
-  video.src=videos[i].servers?.[0]?.url||videos[i].url;
-  document.getElementById("player").style.display="flex";
-}
-
-function closePlayer(){
-  const video=document.getElementById("video");
-  video.pause();video.src="";
-  document.getElementById("player").style.display="none";
-}
-
-function nextVideo(){if(currentIndex<videos.length-1)openPlayer(currentIndex+1)}
-function prevVideo(){if(currentIndex>0)openPlayer(currentIndex-1)}
-
-function setServer(i){
-  const v=videos[currentIndex].servers?.[i];
-  if(v)document.getElementById("video").src=v.url;
-}
-
-function downloadSmart(){
-  window.open(SMARTLINK,"_blank");
-  const file=videos[currentIndex].download||videos[currentIndex].servers?.[0]?.url;
-  setTimeout(()=>{window.location=file},1500);
-}
-
-loadVideos();
-</script></body>
+</body>
 </html>
