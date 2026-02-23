@@ -1,29 +1,29 @@
 [
-  {
-    "title": "Yamisung cosplay Yoimiya - Genshin Impact",
-    "thumb": "LINK_THUMBNAIL",
-    "category": "cosplayer",
+{
+"id":"v1",
+"title":"Cosplayer Jepang",
+"thumb":"https://i.ibb.co/abc.jpg",
+"category":"cosplayer",
 
-    "servers": [
-      { "name": "Server 1", "url": "https://streamtape.com/e/DP08YxGbP4tkXMe/" },
-      { "name": "Server 2", "url": "LINK_VIDEO_SERVER2" },
-      { "name": "Server 3", "url": "LINK_VIDEO_SERVER3" }
-    ],
+"servers":[
+{"name":"Server 1","url":"https://myvidplay.com/e/b0nfanwrac4j"},
+{"name":"Server 2","url":"https://filemoon.sx/e/xxxxx"},
+{"name":"Server 3","url":"https://myvidplay.com/e/xxxxx"}
+],
 
-    "download": "https://streamtape.com/v/DP08YxGbP4tkXMe/Yamisung_cosplay_Yoimiya_-_Genshin_Impact.mp4"
-  },
+"download":"https://smartlinkkamu.com"
+},
 
-  {
-    "title": "Ayame Base cosplay Shylily - Vtuber",
-    "thumb": "LINK_THUMBNAIL",
-    "category": "cosplayer",
+{
+"id":"v2",
+"title":"JAV Sample",
+"thumb":"https://i.ibb.co/abc2.jpg",
+"category":"jav",
 
-    "servers": [
-      { "name": "Server 1", "url": "https://myvidplay.com/e/b0nfanwrac4j" },
-      { "name": "Server 2", "url": "https://streamtape.com/v/dK0dgyYdybSkkAy/Ayame_Base_cosplay_Shylily_-_Vtuber_%284%29.mp4" },
-      { "name": "Server 3", "url": "LINK_VIDEO_SERVER3" }
-    ],
+"servers":[
+{"name":"Server 1","url":"https://mixdrop.top/e/9wq87x91sqn63k"}
+],
 
-    "download": "https://streamtape.com/v/mwObQq3A2GFbowQ/Ayame_Base_cosplay_Shylily_-_Vtuber_%284%29.mp4"
-  }
+"download":"https://smartlinkkamu.com"
+}
 ]
