@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Player</title>
+
+<style>
+body{margin:0;background:#000;color:white;font-family:sans-serif;text-align:center}
+
+iframe{
+width:100%;
+height:70vh;
+border:none;
+}
+
+button{
+margin:5px;
+padding:10px 15px;
+background:red;
+border:none;
+color:white;
+border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="title"></h2>
+
+<iframe id="player"></iframe>
+
+<div id="servers"></div>
+
+<br>
+<button id="download">⬇ Download</button>
+
+<script>
+
+const params=new URLSearchParams(location.search);
+const id=params.get("id");
+
+fetch("videos.json")
+.then(r=>r.json())
+.then(data=>{
+
+const video=data.find(v=>v.id===id);
+
+document.getElementById("title").innerText=video.title;
+
+loadServer(video,0);
+
+const box=document.getElementById("servers");
+
+video.servers.forEach((s,i)=>{
+box.innerHTML+=
+`<button onclick='loadServer(videoData,${i})'>${s.name}</button>`;
+});
+
+videoData=video;
+
+document.getElementById("download").onclick=()=>{
+window.open(video.download);
+};
+
+});
+
+let videoData;
+
+function loadServer(v,i){
+document.getElementById("player").src=v.servers[i].url;
+}
+
+</script>
+
+</body>
+</html>
