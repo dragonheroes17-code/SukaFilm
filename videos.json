@@ -1,15 +1,29 @@
 [
   {
-    "title": "Yamisung cosplay Yoimiya - Genshin Impact.mp4",
+    "title": "Yamisung cosplay Yoimiya - Genshin Impact",
     "thumb": "LINK_THUMBNAIL",
-    "category": "Cosplayer",
+    "category": "cosplayer",
 
     "servers": [
-      { "name": "Server 1", "url": "https://streamtape.com/v/DP08YxGbP4tkXMe/Yamisung_cosplay_Yoimiya_-_Genshin_Impact.mp4" },
+      { "name": "Server 1", "url": "https://streamtape.com/e/DP08YxGbP4tkXMe/" },
       { "name": "Server 2", "url": "LINK_VIDEO_SERVER2" },
       { "name": "Server 3", "url": "LINK_VIDEO_SERVER3" }
     ],
 
-    "download": "https://streamtape.com/v/DP08YxGbP4tkXMe/Yamisung_cosplay_Yoimiya_-_Genshin_Impact.mp4",
+    "download": "https://streamtape.com/v/DP08YxGbP4tkXMe/Yamisung_cosplay_Yoimiya_-_Genshin_Impact.mp4"
+  },
+
+  {
+    "title": "Ayame Base cosplay Shylily - Vtuber",
+    "thumb": "LINK_THUMBNAIL",
+    "category": "cosplayer",
+
+    "servers": [
+      { "name": "Server 1", "url": "https://streamtape.com/e/mwObQq3A2GFbowQ/" },
+      { "name": "Server 2", "url": "LINK_VIDEO_SERVER2" },
+      { "name": "Server 3", "url": "LINK_VIDEO_SERVER3" }
+    ],
+
+    "download": "https://streamtape.com/v/mwObQq3A2GFbowQ/Ayame_Base_cosplay_Shylily_-_Vtuber_%284%29.mp4"
   }
 ]
