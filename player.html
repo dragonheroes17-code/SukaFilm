@@ -1,77 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Player</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Player - Suka Film</title>
 
-<style>
-body{margin:0;background:#000;color:white;font-family:sans-serif;text-align:center}
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
 
-iframe{
-width:100%;
-height:70vh;
-border:none;
-}
+        /* HEADER */
+        .header {
+            padding: 15px;
+            background: #111;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-button{
-margin:5px;
-padding:10px 15px;
-background:red;
-border:none;
-color:white;
-border-radius:8px;
-}
-</style>
+        .back-btn {
+            position: absolute;
+            left: 15px;
+            color: #fff;
+            text-decoration: none;
+            background: #333;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* TITLE */
+        .video-title {
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ddd;
+        }
+
+        /* PLAYER */
+        .player-box {
+            width: 95%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        iframe {
+            width: 100%;
+            height: 55vh;
+            border: none;
+            border-radius: 8px;
+            background: #111;
+        }
+
+        /* SERVER BUTTON */
+        .servers {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .servers button {
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .servers button.active {
+            background: red;
+            border-color: red;
+        }
+
+        /* DOWNLOAD */
+        .download {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .download button {
+            background: #00b894;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
 </head>
 
 <body>
 
-<h2 id="title"></h2>
+    <script src="https://pl28689674.effectivegatecpm.com/ff/55/77/ff5577d8518b78b53e2583db39c0880f.js"></script>
 
-<iframe id="player"></iframe>
+    <div class="header">
+        <a href="index.html" class="back-btn">⬅ Back</a>
+        🎬 Suka Film
+    </div>
 
-<div id="servers"></div>
+    <div class="video-title" id="title">Memuat Video...</div>
 
-<br>
-<button id="download">⬇ Download</button>
+    <div class="player-box">
+        <iframe id="player" allowfullscreen></iframe>
+        <div class="servers" id="servers"></div>
+        <div class="download">
+            <button id="downloadBtn">⬇ Download Video</button>
+        </div>
+    </div>
 
-<script>
+    <script>
+        const params = new URLSearchParams(location.search);
+        const id = params.get("id");
+        let videoData;
 
-const params=new URLSearchParams(location.search);
-const id=params.get("id");
+        // Ambil data dari JSON
+        fetch("videos.json")
+            .then(res => res.json())
+            .then(data => {
+                // Cari video yang sesuai dengan ID di URL
+                videoData = data.find(v => v.id === id);
 
-fetch("videos.json")
-.then(r=>r.json())
-.then(data=>{
+                // Jika video tidak ditemukan di JSON
+                if (!videoData) {
+                    document.getElementById("title").innerHTML = "<span style='color:red;'>⚠️ Video tidak ditemukan</span>";
+                    document.getElementById("player").style.display = "none";
+                    document.getElementById("servers").style.display = "none";
+                    document.getElementById("downloadBtn").style.display = "none";
+                    return;
+                }
 
-const video=data.find(v=>v.id===id);
+                // Set Judul
+                document.getElementById("title").innerText = videoData.title;
+                document.title = videoData.title + " - Suka Film";
 
-document.getElementById("title").innerText=video.title;
+                // Render tombol server DULU, baru load iframe-nya
+                createServers();
+                
+                // Pastikan ada data server sebelum di-load
+                if (videoData.servers && videoData.servers.length > 0) {
+                    loadServer(0);
+                } else {
+                    document.getElementById("player").style.display = "none";
+                }
 
-loadServer(video,0);
+                // Tombol Download
+                document.getElementById("downloadBtn").onclick = () => {
+                    if(videoData.download) {
+                        window.open(videoData.download, '_blank');
+                    } else {
+                        alert("Link download belum tersedia untuk video ini.");
+                    }
+                };
+            })
+            .catch(err => {
+                console.error("Error loading data:", err);
+                document.getElementById("title").innerHTML = "<span style='color:red;'>⚠️ Gagal memuat database video</span>";
+            });
 
-const box=document.getElementById("servers");
+        // Fungsi membuat tombol server
+        function createServers() {
+            const box = document.getElementById("servers");
+            if (!videoData.servers) return;
 
-video.servers.forEach((s,i)=>{
-box.innerHTML+=
-`<button onclick='loadServer(videoData,${i})'>${s.name}</button>`;
-});
+            box.innerHTML = videoData.servers.map((s, i) => `
+                <button onclick="loadServer(${i})">${s.name}</button>
+            `).join('');
+        }
 
-videoData=video;
+        // Fungsi memuat iframe server
+        function loadServer(i) {
+            if (!videoData.servers || !videoData.servers[i]) return;
 
-document.getElementById("download").onclick=()=>{
-window.open(video.download);
-};
+            // Ganti link iframe
+            document.getElementById("player").src = videoData.servers[i].url;
 
-});
-
-let videoData;
-
-function loadServer(v,i){
-document.getElementById("player").src=v.servers[i].url;
-}
-
-</script>
+            // Atur warna tombol aktif
+            const buttons = document.querySelectorAll(".servers button");
+            buttons.forEach(b => b.classList.remove("active"));
+            
+            if (buttons[i]) {
+                buttons[i].classList.add("active");
+            }
+        }
+    </script>
 
 </body>
 </html>
