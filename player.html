@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Player - Suka Film</title>
+<title>Suka Film</title>
 
 <style>
 
@@ -28,7 +28,7 @@ font-weight:bold;
 
 .video-title{
 padding:10px;
-font-size:16px;
+font-size:18px;
 }
 
 /* PLAYER */
@@ -50,20 +50,21 @@ background:#000;
 /* SERVER BUTTON */
 
 .servers{
-margin-top:10px;
+margin-top:12px;
 display:flex;
 justify-content:center;
 flex-wrap:wrap;
-gap:8px;
+gap:10px;
 }
 
 .servers button{
 background:#222;
 border:none;
 color:white;
-padding:8px 14px;
+padding:10px 16px;
 border-radius:6px;
 cursor:pointer;
+font-size:14px;
 }
 
 .servers button.active{
@@ -73,16 +74,25 @@ background:red;
 /* DOWNLOAD */
 
 .download{
-margin-top:12px;
+margin-top:15px;
 }
 
 .download button{
 background:red;
 border:none;
 color:white;
-padding:10px 20px;
+padding:12px 24px;
 border-radius:8px;
 cursor:pointer;
+font-size:15px;
+}
+
+/* ADS */
+
+.ads{
+margin-top:20px;
+display:flex;
+justify-content:center;
 }
 
 </style>
@@ -104,8 +114,26 @@ cursor:pointer;
 <div class="servers" id="servers"></div>
 
 <div class="download">
-<button id="downloadBtn">⬇ Download</button>
+<button id="downloadBtn">⬇ Download Video</button>
 </div>
+
+</div>
+
+<!-- BANNER ADS -->
+
+<div class="ads">
+
+<script>
+atOptions = {
+'key' : '918a03189f43a50d0c498f0fe27c8fd1',
+'format' : 'iframe',
+'height' : 250,
+'width' : 300,
+'params' : {}
+};
+</script>
+
+<script src="https://www.highperformanceformat.com/918a03189f43a50d0c498f0fe27c8fd1/invoke.js"></script>
 
 </div>
 
@@ -122,11 +150,16 @@ fetch("videos.json")
 
 videoData = data.find(v => v.id === id);
 
+if(!videoData){
+document.getElementById("title").innerText="Video tidak ditemukan";
+return;
+}
+
 document.getElementById("title").innerText = videoData.title;
 
-loadServer(0);
-
 createServers();
+
+loadServer(0);
 
 document.getElementById("downloadBtn").onclick = ()=>{
 window.open(videoData.download);
@@ -136,8 +169,7 @@ window.open(videoData.download);
 
 function loadServer(i){
 
-document.getElementById("player").src =
-videoData.servers[i].url;
+document.getElementById("player").src = videoData.servers[i].url;
 
 document.querySelectorAll(".servers button")
 .forEach(b=>b.classList.remove("active"));
@@ -151,10 +183,12 @@ function createServers(){
 
 const box = document.getElementById("servers");
 
+box.innerHTML="";
+
 videoData.servers.forEach((s,i)=>{
 
 box.innerHTML += `
-<button onclick="loadServer(${i})">
+<button onclick="loadServer(${i})" ${i==0?'class="active"':''}>
 ${s.name}
 </button>
 `;
