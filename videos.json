@@ -1,22 +1,73 @@
 [
-  {
-    "id": "v001",
-    "title": "Cosplay Keren di Event",
-    "thumb": "https://images.unsplash.com/photo-1612487528505-d2338264c821?w=500&q=80",
-    "category": "cosplayer",
-    "server1": "https://myvidplay.com/e/b0nfanwrac4j",
-    "server2": "https://streamtape.com/e/dK0dgyYdybSkkAy",
-    "server3": "https://www.youtube.com/embed/tgbNymZ7vqY",
-    "download": "https://link-download-kamu.com/file-v001.mp4"
-  },
-  {
-    "id": "v002",
-    "title": "Kompilasi Video Pendek Lucu",
-    "thumb": "https://images.unsplash.com/photo-1581622558667-3419a8dc5f83?w=500&q=80",
-    "category": "short",
-    "server1": "https://myvidplay.com/e/3xnqk1e0lby9",
-    "server2": "URL_EMBED_SERVER_2_DISINI",
-    "server3": "URL_EMBED_SERVER_3_DISINI",
-    "download": "URL_DOWNLOAD_DISINI"
-  }
+{
+"id":"v1",
+"title":"Ayame Base Cosplay Shylily",
+"thumb":"https://i.imgur.com/4Z7YQ8M.jpeg",
+"category":"cosplayer",
+
+"servers":[
+{
+"name":"Server 1",
+"url":"https://streamtape.com/e/dK0dgyYdybSkkAy/"
+},
+{
+"name":"Server 2",
+"url":"https://vidhide.com/e/xxxxx"
+},
+{
+"name":"Server 3",
+"url":"https://filemoon.sx/e/yyyyy"
+}
+],
+
+"download":"https://streamtape.com/v/dK0dgyYdybSkkAy/"
+},
+
+{
+"id":"v2",
+"title":"JAV Sample Video",
+"thumb":"https://i.imgur.com/VpK2F5T.jpeg",
+"category":"jav",
+
+"servers":[
+{
+"name":"Server 1",
+"url":"https://streamtape.com/e/abc123/"
+},
+{
+"name":"Server 2",
+"url":"https://vidhide.com/e/def456"
+},
+{
+"name":"Server 3",
+"url":"https://filemoon.sx/e/ghi789"
+}
+],
+
+"download":"https://streamtape.com/v/abc123/"
+},
+
+{
+"id":"v3",
+"title":"Short Video Cosplay",
+"thumb":"https://i.imgur.com/NQxY9rB.jpeg",
+"category":"short",
+
+"servers":[
+{
+"name":"Server 1",
+"url":"https://streamtape.com/e/xyz111/"
+},
+{
+"name":"Server 2",
+"url":"https://vidhide.com/e/xyz222"
+},
+{
+"name":"Server 3",
+"url":"https://filemoon.sx/e/xyz333"
+}
+],
+
+"download":"https://streamtape.com/v/xyz111/"
+}
 ]
